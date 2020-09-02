@@ -8,7 +8,6 @@ const config = {
 };
 
 
-const REMOTE = "{{user}}:{{password}}@{{host}}/{{dbname}}?retryWrites=true&w=majority"
 if (!DEV){
 	config.db = {
 		user: process.env.ATDB_USERNAME,
@@ -16,7 +15,8 @@ if (!DEV){
 		host: process.env.ATDB_HOST,
 		dbname: process.env.ATDB_DBNAME,
 	}
-	// config.db.url = REMOTE  start here
+	const { user, password, host, dbname } = config.db;
+	config.db.url = `${user}:${password}@${host}/${dbname}?retryWrites=true&w=majority`
 }
 
 module.exports = config
